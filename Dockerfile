@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y sudo wget curl vim
 
 # Install the packages needed for the build
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y python-is-python3 less bc \
-jq git
+jq git fastfetch
 
 # User management
 RUN groupadd -g $groupid $username \
@@ -27,6 +27,12 @@ RUN groupadd -g $groupid $username \
  &&  echo "${username} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers \
  && chown -R ${username}:${username} /home/${username} \
  && mkdir /aosp && chown $userid:$groupid /aosp && chmod ug+s /aosp
+
+# scripts
+RUN wget -q https://raw.githubusercontent.com/librefox05/foxtainer/refs/heads/main/scripts/goup -O /usr/bin/goup \
+&& chmod +x /usr/bin/goup \
+&& wget -q https://raw.githubusercontent.com/librefox05/foxtainer/refs/heads/main/scripts/getsource -O /usr/bin/getsource \
+&& chmod +x /usr/bin/getsource
 
 WORKDIR /home/${username}
 USER ${username}
@@ -36,4 +42,4 @@ CMD ["/bin/bash"]
 RUN git config --global user.name rvsmooth \
 && git config --global user.email riveeks.smooth@gmail.com \
 && git config --global color.ui false \
-&& git config --global core.editor vim 
+&& git config --global core.editor vim
