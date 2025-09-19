@@ -1,0 +1,6 @@
+#!/bin/bash
+
+url='https://github.com/librefox05/source'
+
+echo 'Cloning librefox-source'
+git clone $url librefox-source && cd librefox-source
