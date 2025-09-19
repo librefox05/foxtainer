@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y sudo wget curl vim
 
 # Install the packages needed for the build
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y python-is-python3 less bc \
-jq git fastfetch
+jq git fastfetch make xz-utils python3-pip
 
 # User management
 RUN groupadd -g $groupid $username \
